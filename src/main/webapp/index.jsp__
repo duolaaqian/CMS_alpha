@@ -1,0 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- <%@ taglib uri="/WEB-INF/tld/c.tld" prefix="c" %> --%>
+<%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%> --%>
+<%
+	String ctx = request.getContextPath();
+	request.setAttribute("ctx", ctx);
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>demo</title>
+<!-- script代码 -->
+<script type="text/javascript" src="${ctx}/js/oa-basic/jquery-easyui/jquery.min.js"></script>
+<style type="text/css">
+</style>
+
+<script type="text/javascript">
+// alert('${ctx}');
+</script>
+</head>
+<body>
+<h2>Hello World!</h2>
+<a href="${ctx}/oa/login?a=1">登陆</a>
+</body>
+</html>

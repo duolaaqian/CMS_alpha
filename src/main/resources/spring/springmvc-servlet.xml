@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"    
+    xmlns:p="http://www.springframework.org/schema/p"    
+    xmlns:mvc="http://www.springframework.org/schema/mvc"    
+    xmlns:context="http://www.springframework.org/schema/context"    
+    xmlns:util="http://www.springframework.org/schema/util"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd    
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd    
+            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd    
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"> 
+     
+    <!-- 对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
+    <context:component-scan base-package="com.dlaq"/>
+    <context:component-scan base-package="org.webframe"/>
+	
+	<!-- 支持spring3.0新的mvc注解 -->
+<!-- 	<mvc:annotation-driven /> -->
+
+	<!-- 处理在类级别上的@RequestMapping注解-->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" >
+	    <property name="interceptors">
+	       <!-- 多个拦截器,顺序执行 -->
+	       <list>
+	          <ref bean="commonInterceptor"/>
+	       </list>
+	    </property>
+	</bean>
+	<!-- 
+	         如果不定义mappingURL，则默认拦截所有对Controller的请求 ; 
+	         可以使用正则表达式对url进行匹配，从而更细粒度的进行拦截(.*/entryOrJsonController\.do\?action=reg.*);
+	-->
+	<bean id="commonInterceptor" class="org.webframe.web.CommonInterceptor"/>
+	
+	<!-- 处理方法级别上的@RequestMapping注解-->
+	<!-- 
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
+	    <property name="messageConverters">  
+         	<util:list id="beanList">  
+                <ref bean="commonInterceptor"/>  
+        	</util:list>  
+    	</property> 
+	</bean>
+ 	-->
+    <!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
+
+    <!--对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
+        p:prefix="/jsp/" p:suffix=".jsp">
+        <!-- 如果使用jstl的话，配置下面的属性 -->
+    	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+    	
+    </bean>
+</beans>

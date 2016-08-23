@@ -1,0 +1,14 @@
+/****datagrid边框样式start****/
+/* .datagrid-td-rownumber td{border-right-color: #828080;} */
+.datagrid-td-rownumber{filter: none;background:transparent;}
+.datagrid-body td{
+	border-style: solid;
+/* 	border-color: #828080; */
+}
+.datagrid-htable td{
+	border-style: solid;
+/* 	border-color: #828080; */
+}
+/* .datagrid-header{border-bottom:none;} */
+.datagrid-header .datagrid-cell span{font-weight: 600;}
+/****datagrid边框样式end****/

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean class="org.webframe.web.page.adapter.ValueListAdapterManager">
+		<property name="order" value="10"/>
+		<property name="appended">
+			<map>
+				<entry key="allMenuAdapter">
+					<bean parent="dynaBeanAdapter">
+						<property name="showSql" value="false" />
+						<property name="sql">
+							<value>
+								SELECT * FROM oa_basic_menu
+							</value>
+						</property>
+					</bean>
+				</entry>
+				<entry key="allUserAdapter">
+					<bean parent="dynaBeanAdapter">
+						<property name="showSql" value="true" />
+						<property name="paging" value="true" />
+						<property name="sql">
+							<value>
+								SELECT * FROM oa_basic_ug_user
+								ORDER BY showindex_
+							</value>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	
+</beans>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:security="http://www.springframework.org/schema/security"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+		http://www.springframework.org/schema/security  
+		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+     
+	<security:http realm="Contacts Realm" auto-config="true">
+		<security:anonymous granted-authority="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<security:intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/favicon.ico" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/images/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/css/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/js/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/sysmanage/ug/useradd/loginSys" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/debug*" access="ROLE_ADMINISTRATOR" />
+
+		<security:form-login login-page="/login" login-processing-url="/j_oa_security_check" authentication-success-handler-ref="logAuthenticationSuccessHandler"
+			default-target-url="/manage" authentication-failure-url="/login?login_error=1" />
+		<security:http-basic />
+		<security:logout logout-url="/j_oa_security_logout" logout-success-url="/manage" />
+		<security:remember-me />
+<!-- 		<custom-filter ref="dbFilterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" /> -->
+		<security:intercept-url pattern="/**" access="ROLE_USER"/>
+
+
+	</security:http>
+	
+	<bean id="logAuthenticationSuccessHandler" class="com.dlaq.oa.basic.security.LogAuthenticationSuccessHandler"/>
+	
+	<!-- 
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="user" password="user" authorities="ROLE_USER"/>
+				<security:user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN"/>
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	 -->
+	<!--  -->
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider user-service-ref="userService">
+		<!-- 
+			<security:password-encoder hash="md5" >
+				<security:salt-source user-property="username"/>
+			</security:password-encoder>
+		 -->
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+</beans>

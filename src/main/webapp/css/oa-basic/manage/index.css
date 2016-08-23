@@ -1,0 +1,20 @@
+.index_banner{
+	height:80px;
+	background:url(../../../images/oa-basic/manage/banner2.png) repeat-x;
+}
+
+
+
+
+.icon-user{
+	background:url('../../../images/oa-basic/manage/user.png') no-repeat center center;
+}
+.icon-group{
+	background:url('../../../images/oa-basic/manage/group.png') no-repeat center center;
+}
+.icon-larg-menu{
+	background:url('../../../images/oa-basic/manage/large_menu.png') no-repeat center center;
+}
+.icon-larg-demo{
+	background:url('../../../images/oa-basic/manage/large_demo.png') no-repeat center center;
+}
